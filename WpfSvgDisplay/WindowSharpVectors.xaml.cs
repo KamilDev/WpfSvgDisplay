@@ -6,7 +6,7 @@ using SharpVectors.Renderers.Wpf;
 
 namespace WpfSvgDisplay
 {
-    public partial class WindowSharpVectors : Window
+    public partial class WindowSharpVectors : Window, IDisplaySvg
     {
         private readonly SvgFileHandler _fileHandler;
         private readonly WpfDrawingSettings _settings;

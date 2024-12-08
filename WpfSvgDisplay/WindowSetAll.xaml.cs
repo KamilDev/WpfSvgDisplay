@@ -7,16 +7,12 @@ namespace WpfSvgDisplay
     public partial class WindowSetAll : Window
     {
         private readonly SvgFileHandler _fileHandler;
-        private readonly MainWindow _mainWindow;
-        private readonly WindowSharpVectors _window2;
-        private readonly WindowSvgSkia _window3;
+        private readonly Window[] _windows;
 
-        public WindowSetAll(MainWindow mainWindow, WindowSharpVectors window2, WindowSvgSkia window3)
+        public WindowSetAll(Window[] windows)
         {
             InitializeComponent();
-            _mainWindow = mainWindow;
-            _window2 = window2;
-            _window3 = window3;
+            _windows = windows;
 
             // Initialize file handler with our custom display method
             _fileHandler = new SvgFileHandler(DisplaySvgInAllWindows, () => { });
@@ -26,10 +22,14 @@ namespace WpfSvgDisplay
         {
             try
             {
-                // Display in all windows
-                _mainWindow.DisplaySvg(svgPath);
-                _window2.DisplaySvg(svgPath);
-                _window3.DisplaySvg(svgPath);
+                // Display in all windows that implement DisplaySvg
+                foreach (var window in _windows)
+                {
+                    if (window is IDisplaySvg displayWindow)
+                    {
+                        displayWindow.DisplaySvg(svgPath);
+                    }
+                }
             }
             catch (Exception ex)
             {

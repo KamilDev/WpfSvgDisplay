@@ -8,7 +8,7 @@ using SkiaSharp;
 
 namespace WpfSvgDisplay
 {
-    public partial class WindowSvgSkia : Window
+    public partial class WindowSvgSkia : Window, IDisplaySvg
     {
         private readonly SvgFileHandler _fileHandler;
         private readonly SKSvg _skSvg;
